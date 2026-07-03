@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,6 +18,8 @@ import lombok.*;
 
 public class UrlEntity {
 	
+
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long urlId;
@@ -36,9 +37,42 @@ public class UrlEntity {
 			)
 	private LocalDateTime createdAt;
 	
+	public Long getUrlId() {
+		return urlId;
+	}
+
+	public void setUrlId(Long urlId) {
+		this.urlId = urlId;
+	}
+
+	public String getOriginalUrl() {
+		return originalUrl;
+	}
+
+	public void setOriginalUrl(String originalUrl) {
+		this.originalUrl = originalUrl;
+	}
+
+	public String getShortCode() {
+		return shortCode;
+	}
+
+	public void setShortCode(String shortCode) {
+		this.shortCode = shortCode;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 	@PrePersist
 	public void prePersist()
 	{
+		
 		createdAt = LocalDateTime.now();
 	}
 }

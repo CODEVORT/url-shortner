@@ -5,9 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bhushan.url_shortner.UrlShortnerApplication;
 import com.bhushan.url_shortner.exceptions.ShortCodeGenerationException;
 import com.bhushan.url_shortner.repositoires.UrlRepository;
 
@@ -18,7 +16,7 @@ import lombok.val;
 @RequiredArgsConstructor
 public class Sha256Base64Generator implements ShortCodeGenerator{
 
-    private final UrlShortnerApplication urlShortnerApplication;
+
 
 	private static final String BASE62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	
@@ -28,17 +26,14 @@ public class Sha256Base64Generator implements ShortCodeGenerator{
 	
 	private  UrlRepository urlRepository;
 
-    Sha256Base64Generator(UrlShortnerApplication urlShortnerApplication) {
-        this.urlShortnerApplication = urlShortnerApplication;
-    }
-	
+
 	@Override
 	public String generateUniqueCode(String originalUrl) {
 		for(int attempts = 0; attempts < MAX_TRIES ; attempts++)
 		{
 			String candidate = generateCode(originalUrl , attempts);
 			
-			if(!urlRepository.existsbyShortCode(candidate))
+			if(!urlRepository.existsByShortCode(candidate))
 			{
 				return candidate;
 			}

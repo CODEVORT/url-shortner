@@ -12,6 +12,6 @@ public interface UrlRepository extends JpaRepository<UrlEntity, Long> {
 	
 	Optional<UrlEntity> findByOriginalUrl(String originalUrl);
 	
-	Boolean existsbyShortCode(String shortCode);
+	Boolean existsByShortCode(String shortCode);
 
 }

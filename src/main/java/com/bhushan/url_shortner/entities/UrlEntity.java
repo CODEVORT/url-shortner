@@ -11,6 +11,7 @@ import lombok.*;
 @Entity
 @Table(
 		name = "urls",
+		schema = "url_shrt_schema",
 		uniqueConstraints = {
 				@UniqueConstraint(name = "uk_short_code" , columnNames = "short_code")
 			}

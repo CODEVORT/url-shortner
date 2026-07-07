@@ -62,7 +62,10 @@ public class Sha256Base64Generator implements ShortCodeGenerator{
 			return digest.digest(value.getBytes(StandardCharsets.UTF_8));
 		}
 		catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
+			throw new ShortCodeGenerationException(
+		            "SHA-256 algorithm unavailable",
+		            e
+		    );
 		}
 	}
 	

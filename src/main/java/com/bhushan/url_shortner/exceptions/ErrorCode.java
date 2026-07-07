@@ -1,0 +1,11 @@
+package com.bhushan.url_shortner.exceptions;
+
+public enum ErrorCode {
+	VALIDATION_ERROR,
+    URL_NOT_FOUND,
+    URL_ALREADY_EXISTS,
+    SHORT_CODE_GENERATION_FAILED,
+    INTERNAL_SERVER_ERROR,
+    INVALID_METHOD_ARGUMENT,
+    CONSTRAINT_VIOLATION_EXCEPTION,
+}

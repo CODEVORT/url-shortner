@@ -10,6 +10,7 @@ import com.bhushan.url_shortner.dtos.CreateShortUrlRequest;
 import com.bhushan.url_shortner.dtos.CreateShortUrlResponse;
 import com.bhushan.url_shortner.services.UrlService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,8 +21,11 @@ public class UrlController {
 	private final UrlService urlService;
 	
 	@PostMapping
-	public ResponseEntity<CreateShortUrlResponse> createShortUrl(@RequestBody CreateShortUrlRequest request)
+	public ResponseEntity<CreateShortUrlResponse> createShortUrl(
+			@Valid @RequestBody CreateShortUrlRequest request
+			)
 	{
+		
 		return ResponseEntity.ok(
 				urlService.createShortUrl(request)
 				);

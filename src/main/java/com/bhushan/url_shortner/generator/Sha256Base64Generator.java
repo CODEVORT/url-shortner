@@ -24,7 +24,7 @@ public class Sha256Base64Generator implements ShortCodeGenerator{
 	
 	private static final int MAX_TRIES = 10 ;
 	
-	private  UrlRepository urlRepository;
+	private final UrlRepository urlRepository;
 
 
 	@Override
@@ -48,7 +48,8 @@ public class Sha256Base64Generator implements ShortCodeGenerator{
 	{
 		String value = attempts == 0 ?  url : url+ "#" + attempts;
 		byte[] hash = sha256(value);
-		return null;
+		return toBase62(hash)
+                .substring(0, SHORT_CODE_LENGTH);
 	}
 	
 	

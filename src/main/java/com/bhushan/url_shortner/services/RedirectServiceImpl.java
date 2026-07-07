@@ -21,7 +21,7 @@ public class RedirectServiceImpl implements RedirectService {
 	
 	
 	@Override
-	public String getOriginalService(String shortCode) {
+	public String getOriginalUrl(String shortCode) {
 
 		String cacheKey = CacheConstants.URL_KEY_PREFRIX + shortCode;
 		
@@ -34,7 +34,7 @@ public class RedirectServiceImpl implements RedirectService {
 					shortCode
 					);
 			
-			return shortCode;
+			return cachedUrl;
 		}
 		log.info(
                 "Cache MISS for shortCode={}",

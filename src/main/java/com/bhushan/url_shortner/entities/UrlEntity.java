@@ -23,6 +23,7 @@ public class UrlEntity {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column(name = "url_id")
 	private Long urlId;
 	
 	@Column(name = "original_url" ,  nullable = false , columnDefinition = "TEXT")
@@ -30,6 +31,9 @@ public class UrlEntity {
 	
 	@Column(name = "short_code" , nullable = false , length = 8)
 	private String shortCode;
+	
+//	@Column(name = "url_hash", nullable = false, length = 64)
+//	private String urlHash;
 	
 	@Column(
 			name = "created_at",
@@ -76,4 +80,12 @@ public class UrlEntity {
 		
 		createdAt = LocalDateTime.now();
 	}
+
+//	public String getUrlHash() {
+//		return urlHash;
+//	}
+//
+//	public void setUrlHash(String urlHash) {
+//		this.urlHash = urlHash;
+//	}
 }

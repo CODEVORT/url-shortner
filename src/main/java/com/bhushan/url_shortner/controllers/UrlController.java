@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bhushan.url_shortner.dtos.CreateShortUrlRequest;
 import com.bhushan.url_shortner.dtos.CreateShortUrlResponse;
 import com.bhushan.url_shortner.services.UrlService;
+import com.bhushan.url_shortner.validation.annotation.ValidUrl;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -22,7 +22,7 @@ public class UrlController {
 	
 	@PostMapping
 	public ResponseEntity<CreateShortUrlResponse> createShortUrl(
-			@Valid @RequestBody CreateShortUrlRequest request
+			@ValidUrl @RequestBody CreateShortUrlRequest request
 			)
 	{
 		

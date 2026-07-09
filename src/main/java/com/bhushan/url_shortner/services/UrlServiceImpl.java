@@ -2,6 +2,8 @@ package com.bhushan.url_shortner.services;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class UrlServiceImpl implements UrlService {
+	
+	private static final Logger log = LoggerFactory.getLogger(UrlServiceImpl.class);
 
     private final UrlRepository urlRepository;
     private final CacheService  cacheServie;
@@ -30,12 +34,17 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     public CreateShortUrlResponse createShortUrl(CreateShortUrlRequest request) {
+    	long start = System.currentTimeMillis();
+    	
 
         String originalUrl =
                 request.original_url();
-
+                
         Optional<UrlEntity> existing =
                 urlRepository.findByOriginalUrl(originalUrl);
+        
+        log.info("findByOriginalUrl took {} ms",
+                System.currentTimeMillis() - start);
 
         if (existing.isPresent()) {
             return map(existing.get());
@@ -58,10 +67,15 @@ public class UrlServiceImpl implements UrlService {
             
             String cacheKey = CacheConstants.URL_KEY_PREFRIX + saved.getShortCode();
             
+            
+            long cacheStart = System.currentTimeMillis();
             cacheServie.put(
             		cacheKey, 
             		saved.getOriginalUrl()
             		);
+            
+            log.info("redis put took time = {} " , System.currentTimeMillis() - cacheStart);
+            
             
 
             return map(saved);
@@ -72,6 +86,9 @@ public class UrlServiceImpl implements UrlService {
         				.orElseThrow();
         	
         	return map(alreadyCreated);
+        }finally
+        {
+        	log.info("service took time = {} " , System.currentTimeMillis() - start);
         }
         
     }

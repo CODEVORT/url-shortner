@@ -98,7 +98,20 @@ public class GlobalExceptionHandler {
 		log.error("Constraint violation exception");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
-	
+	@ExceptionHandler(RateLimitExceededException.class)
+	public ResponseEntity<ApiErrorResponse> handleRateLimitExceedsException(RateLimitExceededException e)
+	{
+		log.warn("Rate limit exceeded ");
+		ApiErrorResponse response = new ApiErrorResponse(
+					ErrorCode.RATE_LIMIT_EXCEEDED.name(),
+					e.getMessage(),
+					List.of()
+				);
+		
+		
+		
+		return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(response);
+	}
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiErrorResponse> handleUnexpectedException(
 	        Exception ex) {
@@ -115,6 +128,8 @@ public class GlobalExceptionHandler {
 	            .status(HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(response);
 	}
+	
+	
 	
 	
 }
